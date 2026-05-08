@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install xcodegen
+        run: brew install xcodegen
+      
+      - name: Generate Xcode project
+        run: xcodegen generate
+      
+      - name: Build Release
+        run: xcodebuild -project LearnVim.xcodeproj -scheme LearnVim -configuration Release build
+      
+      - name: Package
+        run: |
+          cd ~/Library/Developer/Xcode/DerivedData/LearnVim-*/Build/Products/Release
+          zip -r LearnVim.zip LearnVim.app
+          mv LearnVim.zip $GITHUB_WORKSPACE/
+      
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: LearnVim.zip
