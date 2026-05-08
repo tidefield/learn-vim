@@ -1,0 +1,17 @@
+# Xcode
+LearnVim.xcodeproj/project.xcworkspace/
+LearnVim.xcodeproj/xcuserdata/
+xcuserdata/
+*.xcscmblueprint
+DerivedData/
+build/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# macOS
+.DS_Store
+*.swp
+*~
